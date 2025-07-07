@@ -6,8 +6,11 @@
 class Simulation {
 private:
 	SDL_Window *window;
+	bool running;
 public:
 	Simulation(const char *title, int w, int h);
+
+	void run();
 	
 	~Simulation();
 };

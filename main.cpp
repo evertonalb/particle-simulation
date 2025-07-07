@@ -7,6 +7,8 @@ int SDL_main(int argc, char **args){
 
 	Simulation sim("Simulation", 600, 800);
 
+	sim.run();
+	
 	SDL_Quit();
 	return 0;
 }
