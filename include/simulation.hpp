@@ -11,6 +11,7 @@ public:
 	Simulation(const char *title, int w, int h);
 
 	void run();
+	void on_key_press(SDL_KeyboardEvent keyboardEvent);
 	
 	~Simulation();
 };

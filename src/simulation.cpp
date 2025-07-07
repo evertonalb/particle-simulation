@@ -14,11 +14,29 @@ void Simulation::run(){
 			case SDL_EVENT_QUIT:
 				running = false;
 				break;
-			
+				
+			case SDL_EVENT_KEY_DOWN:
+				on_key_press(event.key);
+				break;
+				
 			default:
 				break;
 			}
 		}
+	}
+}
+
+void Simulation::on_key_press(SDL_KeyboardEvent keyboardEvent){
+	SDL_Event custom;
+	
+	switch (keyboardEvent.key){
+	case SDLK_ESCAPE:
+		custom.type = SDL_EVENT_QUIT;
+		SDL_PushEvent(&custom);
+		break;
+
+	default:
+		break;
 	}
 }
 
