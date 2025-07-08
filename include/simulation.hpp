@@ -2,6 +2,7 @@
 #define SIMULATION_HPP
 
 #include <SDL3/SDL.h>
+#include "ball.hpp"
 
 class Simulation {
 private:
