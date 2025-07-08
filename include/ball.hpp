@@ -2,8 +2,9 @@
 #define BALL_HPP
 
 #include <SDL3/SDL.h>
+#include "polygon.hpp"
 
-class Ball {
+class Ball : public Polygon {
 private:
 	float x, y, radius;
 public:
