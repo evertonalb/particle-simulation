@@ -7,6 +7,8 @@ class Simulation {
 private:
 	SDL_Window *window;
 	bool running;
+
+	void handle_event(SDL_Event event);
 public:
 	Simulation(const char *title, int w, int h);
 

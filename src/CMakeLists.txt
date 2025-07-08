@@ -7,3 +7,4 @@ function (add_library_with_sdl lib)
 endfunction()
 
 add_library_with_sdl(simulation)
+add_library_with_sdl(ball)
