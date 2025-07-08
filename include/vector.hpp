@@ -5,9 +5,20 @@
 
 class Vector {
 private:
-	float x, y;
 public:
-	Vector(float x, float y);
+	float x, y;
+
+	Vector();	
+	Vector(float x, float y);	
+	Vector operator+(Vector v);
+	Vector operator+=(Vector v);
+	Vector operator-();
+	Vector operator-(Vector v);
+	Vector operator-=(Vector v);
+	Vector operator*(float c);
+	Vector operator*=(float c);
 };
+
+Vector operator*(float c, Vector v);
 
 #endif
