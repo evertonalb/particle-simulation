@@ -6,5 +6,10 @@ function (add_library_with_sdl lib)
 	target_include_directories(${lib} PUBLIC ${CMAKE_SOURCE_DIR}/include)
 endfunction()
 
+# SDL-related
 add_library_with_sdl(simulation)
 add_library_with_sdl(ball)
+
+# Non-SDL-related
+add_library(vector STATIC vector.cpp)
+target_include_directories(vector PUBLIC ${CMAKE_SOURCE_DIR}/include)
