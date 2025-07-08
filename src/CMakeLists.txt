@@ -9,6 +9,7 @@ endfunction()
 # SDL-related
 add_library_with_sdl(simulation)
 add_library_with_sdl(ball)
+add_library_with_sdl(polygon)
 
 # Non-SDL-related
 add_library(vector STATIC vector.cpp)
