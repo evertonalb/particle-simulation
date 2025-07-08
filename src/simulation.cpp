@@ -24,6 +24,8 @@ void Simulation::draw(){
 	SDL_RenderPresent(renderer);
 }
 
+void Simulation::createBall(){ balls.emplace_back(0, 0, 20); }
+
 Simulation::Simulation(const char *title, int w, int h){
 	window = SDL_CreateWindow(title, w, h, SDL_WINDOW_MAXIMIZED);
 	renderer = SDL_CreateRenderer(window, NULL);

@@ -37,8 +37,16 @@ void Polygon::move(float x, float y)
 	}
 }
 
+const SDL_Vertex *Polygon::get_vertices(){ return vertices; }
+
+const int Polygon::get_num_vertices(){ return n; }
+
+const int *Polygon::get_indices(){ return indices; }
+
+const int Polygon::get_num_indices(){ return numIndices; }
+
 Polygon::~Polygon()
 {
 	delete[] vertices;
-	SDL_free(indices);
+	delete[] indices;
 }

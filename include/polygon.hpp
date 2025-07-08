@@ -33,6 +33,14 @@ public:
 
 	void move(float x, float y);
 
+	const SDL_Vertex *get_vertices();
+	
+	const int get_num_vertices();
+	
+	const int *get_indices();
+	
+	const int get_num_indices();
+
 	~Polygon();
 };
 
