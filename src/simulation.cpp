@@ -15,8 +15,18 @@ void Simulation::handle_event(SDL_Event event){
 	}
 }
 
+void Simulation::draw(){
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderClear(renderer);
+
+	// Drawing...
+
+	SDL_RenderPresent(renderer);
+}
+
 Simulation::Simulation(const char *title, int w, int h){
 	window = SDL_CreateWindow(title, w, h, SDL_WINDOW_MAXIMIZED);
+	renderer = SDL_CreateRenderer(window, NULL);
 }
 
 void Simulation::run(){
@@ -26,7 +36,10 @@ void Simulation::run(){
 	while (running){
 		while (SDL_PollEvent(&event))
 			handle_event(event);
-	}	
+	}
+
+	draw();
+
 }
 
 void Simulation::on_key_press(SDL_KeyboardEvent keyboardEvent){
