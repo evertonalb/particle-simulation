@@ -2,9 +2,10 @@
 #define VECTOR_HPP
 
 #include <cmath>
+#include <SDL3/SDL.h>
 #define to_radians(x) x * M_PI / 180.0
 
-class Vector {
+class Vector : public SDL_FPoint {
 private:
 public:
 	float x, y;
