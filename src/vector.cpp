@@ -42,4 +42,12 @@ Vector Vector::operator*=(float c){
 	return *this;
 }
 
+void Vector::rotate(float angle){
+	angle = to_radians(angle);
+	float newX = cos(angle) * x - sin(angle) * y;
+	float newY = sin(angle) * x + cos(angle) * y;
+	x = newX;
+	y = newY;
+}
+
 Vector operator*(float c,  Vector v){ return v * c; }
