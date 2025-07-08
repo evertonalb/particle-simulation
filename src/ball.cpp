@@ -7,3 +7,7 @@ Ball::Ball(float x, float y, float r) :
 {
 
 }
+
+Ball::~Ball()
+{
+}
