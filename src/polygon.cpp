@@ -24,7 +24,21 @@ Polygon::Polygon(int n, float radius) : n(n), numIndices(3*(n-2)) {
 	
 }
 
-Polygon::~Polygon(){
+Polygon::Polygon(int n, float radius, float x, float y){
+	Polygon(n, radius);
+	move(x, y);
+}
+
+void Polygon::move(float x, float y)
+{
+	for (int i = 0; i < n; i++){
+		vertices[i].position.x += x;
+		vertices[i].position.y += y;
+	}
+}
+
+Polygon::~Polygon()
+{
 	delete[] vertices;
 	SDL_free(indices);
 }

@@ -19,10 +19,19 @@ private:
 public:
 	Polygon();
 
-	/// @brief Creates a regular polygon based on the radius of the circumscribed circle.
+	/// @brief Creates a regular polygon center at the origin based on the radius of the circumscribed circle.
 	/// @param n number of vertices of the polygon.
 	/// @param radius radius of the circumscribed circle.
 	Polygon(int n, float radius);
+	
+	/// @brief Creates a regular polygon based on the radius of the circumscribed circle and a center.
+	/// @param n number of vertices of the polygon.
+	/// @param radius radius of the circumscribed circle.
+	/// @param x x coordinate of the center
+	/// @param y y  coordinate of the center
+	Polygon(int n, float radius, float x, float y);
+
+	void move(float x, float y);
 
 	~Polygon();
 };
