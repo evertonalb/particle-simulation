@@ -10,8 +10,10 @@ Polygon::Polygon(int n, float radius) : n(n), numIndices(3*(n-2)) {
 	// Vertices
 	Vector v(radius, 0);
 	float angle = 360.0 / n;
+	SDL_FColor white = {1.0, 1.0, 1.0, 1.0};
 	for (int i = 0; i < n; i++){
 		vertices[i].position = v;
+		vertices[i].color = white;
 		v.rotate(angle);
 	}
 
