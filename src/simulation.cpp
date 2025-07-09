@@ -12,7 +12,12 @@ void Simulation::handle_events(){
 		case SDL_EVENT_KEY_DOWN:
 			on_key_press(event.key);
 			break;
-			
+
+		case SDL_EVENT_WINDOW_MOVED:
+			SDL_GetCurrentTime(&currentTime); // Reset current time
+			lastTime = currentTime; // Reset last time
+			break;
+		
 		default:
 			break;
 		}
@@ -99,8 +104,8 @@ void Simulation::run(){
 	SDL_Event event;
 	SDL_GetCurrentTime(&currentTime);
 	while (running){
-		handle_events();
 		passTime(delta);
+		handle_events();
 		update(delta);
 		draw();
 	}
