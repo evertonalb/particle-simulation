@@ -10,6 +10,7 @@ private:
 public:
 	Ball(float x, float y, float r);
 	~Ball();
+	void set_color(float r, float g, float b, float a);
 };
 
 #endif // BALL_HPP

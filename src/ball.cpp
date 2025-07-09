@@ -12,3 +12,9 @@ Ball::Ball(float x, float y, float r) :
 Ball::~Ball()
 {
 }
+
+void Ball::set_color(float r, float g, float b, float a){
+	for (int i = 0; i < n; i++){
+		vertices[i].color = { r, g, b, a };
+	}
+}
