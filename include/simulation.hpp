@@ -12,7 +12,7 @@ private:
 	bool running;
 	std::vector<Ball> balls;
 	
-	void handle_event(SDL_Event event);
+	void handle_events();
 	void draw();
 	void create_ball(float r, float g, float b, float a);
 public:

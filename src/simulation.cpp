@@ -1,17 +1,21 @@
 #include "simulation.hpp"
 
-void Simulation::handle_event(SDL_Event event){
-	switch (event.type){
-	case SDL_EVENT_QUIT:
-		running = false;
-		break;
-	
-	case SDL_EVENT_KEY_DOWN:
-		on_key_press(event.key);
-		break;
+void Simulation::handle_events(){
+	SDL_Event event;
+	// Poll events until there are no more events in the queue
+	while (SDL_PollEvent(&event)){
+		switch (event.type){
+		case SDL_EVENT_QUIT:
+			running = false;
+			break;
 		
-	default:
-		break;
+		case SDL_EVENT_KEY_DOWN:
+			on_key_press(event.key);
+			break;
+			
+		default:
+			break;
+		}
 	}
 }
 
@@ -53,8 +57,7 @@ void Simulation::run(){
 
 	SDL_Event event;
 	while (running){
-		while (SDL_PollEvent(&event))
-			handle_event(event);
+		handle_events();
 		draw();
 	}
 }
