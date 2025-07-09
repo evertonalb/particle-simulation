@@ -8,8 +8,9 @@
 class Ball : public Polygon {
 private:
 	float x, y, radius;
-	Vector speed; // Speed vector for the ball in pixels per second
 public:
+	Vector speed; // Speed vector for the ball in pixels per second
+	
 	Ball(float x, float y, float r);
 	~Ball();
 	void set_color(float r, float g, float b, float a);
