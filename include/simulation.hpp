@@ -18,6 +18,7 @@ private:
 	void update(float &delta);
 	void draw();
 	void create_ball(float r, float g, float b, float a);
+	void handle_collisions(Ball &ball);
 public:
 	Simulation(const char *title, int w, int h);
 
