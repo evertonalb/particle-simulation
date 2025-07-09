@@ -19,6 +19,12 @@ void Simulation::handle_events(){
 	}
 }
 
+void Simulation::passTime(float &delta){
+	lastTime = currentTime;
+	SDL_GetCurrentTime(&currentTime);
+	delta = (currentTime - lastTime) / 1e9f; // Convert nanoseconds to seconds
+}
+
 void Simulation::draw(){
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
@@ -55,9 +61,11 @@ void Simulation::run(){
 
 	create_ball(0, 0.7, 0.7, 1.0);
 
+	float delta;
 	SDL_Event event;
 	while (running){
 		handle_events();
+		passTime(delta);
 		draw();
 	}
 }
