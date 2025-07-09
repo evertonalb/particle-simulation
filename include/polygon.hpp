@@ -4,7 +4,7 @@
 #include <SDL3/SDL.h>
 
 class Polygon {
-private:
+protected:
 	/// @brief Number of vertices of the polygon.
 	int n;
 
