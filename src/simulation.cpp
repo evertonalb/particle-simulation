@@ -34,7 +34,7 @@ void Simulation::draw(){
 	SDL_RenderPresent(renderer);
 }
 
-void Simulation::createBall(float r, float g, float b, float a){
+void Simulation::create_ball(float r, float g, float b, float a){
 	int w, h;
 	SDL_GetWindowSizeInPixels(window, &w, &h);
 	balls.emplace_back(w / 2.0, h / 2.0, 50);
@@ -49,7 +49,7 @@ Simulation::Simulation(const char *title, int w, int h){
 void Simulation::run(){
 	running = true;
 
-	createBall(0, 0.7, 0.7, 1.0);
+	create_ball(0, 0.7, 0.7, 1.0);
 
 	SDL_Event event;
 	while (running){
