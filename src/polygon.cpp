@@ -29,11 +29,11 @@ Polygon::Polygon(int n, float radius) : n(n), numIndices(3*(n-2)) {
 
 Polygon::Polygon(int n, float radius, float x, float y) : Polygon(n, radius) { move(x, y); }
 
-void Polygon::move(float x, float y)
+void Polygon::move(float dx, float dy)
 {
 	for (int i = 0; i < n; i++){
-		vertices[i].position.x += x;
-		vertices[i].position.y += y;
+		vertices[i].position.x += dx;
+		vertices[i].position.y += dy;
 	}
 }
 

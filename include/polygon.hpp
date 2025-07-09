@@ -31,7 +31,7 @@ public:
 	/// @param y y  coordinate of the center
 	Polygon(int n, float radius, float x, float y);
 
-	void move(float x, float y);
+	void move(float dx, float dy);
 
 	const SDL_Vertex *get_vertices() const;
 	

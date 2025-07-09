@@ -15,6 +15,7 @@ private:
 	
 	void handle_events();
 	void passTime(float &delta);
+	void update(float &delta);
 	void draw();
 	void create_ball(float r, float g, float b, float a);
 public:

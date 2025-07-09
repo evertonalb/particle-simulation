@@ -24,6 +24,12 @@ void Simulation::passTime(float &delta){
 	SDL_GetCurrentTime(&currentTime);
 	delta = (currentTime - lastTime) / 1e9f; // Convert nanoseconds to seconds
 }
+	
+void Simulation::update(float &delta){
+	for (auto &ball : balls){
+		ball.update(delta);
+	}
+}
 
 void Simulation::draw(){
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -54,6 +60,11 @@ void Simulation::create_ball(float r, float g, float b, float a){
 Simulation::Simulation(const char *title, int w, int h){
 	window = SDL_CreateWindow(title, w, h, SDL_WINDOW_MAXIMIZED);
 	renderer = SDL_CreateRenderer(window, NULL);
+
+	// Random seed initialization
+	SDL_Time time;
+	SDL_GetCurrentTime(&time);
+	SDL_srand(time);
 }
 
 void Simulation::run(){
@@ -63,9 +74,11 @@ void Simulation::run(){
 
 	float delta;
 	SDL_Event event;
+	SDL_GetCurrentTime(&currentTime);
 	while (running){
 		handle_events();
 		passTime(delta);
+		update(delta);
 		draw();
 	}
 }
