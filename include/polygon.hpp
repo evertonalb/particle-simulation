@@ -33,13 +33,13 @@ public:
 
 	void move(float x, float y);
 
-	const SDL_Vertex *get_vertices();
+	const SDL_Vertex *get_vertices() const;
 	
-	const int get_num_vertices();
+	const int get_num_vertices() const;
 	
-	const int *get_indices();
-	
-	const int get_num_indices();
+	const int *get_indices() const;
+
+	const int get_num_indices() const;
 
 	~Polygon();
 };

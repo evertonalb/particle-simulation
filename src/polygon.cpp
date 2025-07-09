@@ -34,13 +34,13 @@ void Polygon::move(float x, float y)
 	}
 }
 
-const SDL_Vertex *Polygon::get_vertices(){ return vertices; }
+const SDL_Vertex *Polygon::get_vertices() const { return vertices; }
 
-const int Polygon::get_num_vertices(){ return n; }
+const int Polygon::get_num_vertices() const { return n; }
 
-const int *Polygon::get_indices(){ return indices; }
+const int *Polygon::get_indices() const { return indices; }
 
-const int Polygon::get_num_indices(){ return numIndices; }
+const int Polygon::get_num_indices() const { return numIndices; }
 
 Polygon::~Polygon()
 {
