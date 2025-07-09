@@ -4,9 +4,9 @@
 Ball::Ball(float x, float y, float r) :
 	x(x),
 	y(y),
-	radius(r)
+	radius(r),
+	Polygon(50, r, x, y)
 {
-
 }
 
 Ball::~Ball()
