@@ -10,11 +10,15 @@ private:
 	float x, y, radius;
 public:
 	Vector speed; // Speed vector for the ball in pixels per second
-	
+
 	Ball(float x, float y, float r);
 	~Ball();
 	void set_color(float r, float g, float b, float a);
 	void update(float &delta);
+	float lowest_x();
+	float largest_x();
+	float lowest_y();
+	float largest_y();
 };
 
 #endif // BALL_HPP

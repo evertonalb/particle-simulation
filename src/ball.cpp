@@ -32,3 +32,8 @@ void Ball::update(float &delta){
 	// move(dx, dy);
 	// SDL_Log("Ball position: (%f, %f)", x, y);
 }
+
+float Ball::lowest_x(){ return x - radius; }
+float Ball::largest_x(){ return x + radius; }
+float Ball::lowest_y(){ return y - radius; }
+float Ball::largest_y(){ return y + radius; }
