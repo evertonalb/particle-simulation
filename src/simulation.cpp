@@ -19,12 +19,27 @@ void Simulation::draw(){
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 
-	// Drawing...
+	for (const auto &ball : balls){
+		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+		SDL_RenderGeometry(
+			renderer,
+			NULL,
+			ball.get_vertices(),
+			ball.get_num_vertices(),
+			ball.get_indices(),
+			ball.get_num_indices()
+		);
+	}
 
 	SDL_RenderPresent(renderer);
 }
 
-void Simulation::createBall(){ balls.emplace_back(0, 0, 20); }
+void Simulation::createBall(float r, float g, float b, float a){
+	int w, h;
+	SDL_GetWindowSizeInPixels(window, &w, &h);
+	balls.emplace_back(w / 2.0, h / 2.0, 50);
+	balls.back().set_color(r, g, b, a);
+}
 
 Simulation::Simulation(const char *title, int w, int h){
 	window = SDL_CreateWindow(title, w, h, SDL_WINDOW_MAXIMIZED);
@@ -34,14 +49,14 @@ Simulation::Simulation(const char *title, int w, int h){
 void Simulation::run(){
 	running = true;
 
+	createBall(0, 0.7, 0.7, 1.0);
+
 	SDL_Event event;
 	while (running){
 		while (SDL_PollEvent(&event))
 			handle_event(event);
+		draw();
 	}
-
-	draw();
-
 }
 
 void Simulation::on_key_press(SDL_KeyboardEvent keyboardEvent){

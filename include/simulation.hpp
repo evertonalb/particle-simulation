@@ -14,7 +14,7 @@ private:
 	
 	void handle_event(SDL_Event event);
 	void draw();
-	void createBall();
+	void createBall(float r, float g, float b, float a);
 public:
 	Simulation(const char *title, int w, int h);
 
