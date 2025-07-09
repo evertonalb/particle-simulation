@@ -28,6 +28,7 @@ void Simulation::passTime(float &delta){
 	lastTime = currentTime;
 	SDL_GetCurrentTime(&currentTime);
 	delta = (currentTime - lastTime) / 1e9f; // Convert nanoseconds to seconds
+	if (delta > 0.05) delta = 0.016;
 }
 	
 void Simulation::update(float &delta){
@@ -35,6 +36,8 @@ void Simulation::update(float &delta){
 		ball.update(delta);
 		handle_collisions(ball);
 	}
+
+	SDL_Delay(16); // Limit frame rate to approximately 60 FPS
 }
 
 void Simulation::draw(){
