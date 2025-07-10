@@ -55,7 +55,8 @@ Vector Ball::get_speed_in_direction(float angle) const {
 	return component * direction;
 }
 
-bool Ball::is_colliding_with(const Ball &other) const{
+bool Ball::is_colliding_with(const Ball &other) const {
+	if (this == &other) return false; // No collision with itself
 	float dx = other.get_x() - get_x();
 	float dy = other.get_y() - get_y();
 	return SDL_sqrt(dx * dx + dy * dy) < (radius + other.get_radius());
