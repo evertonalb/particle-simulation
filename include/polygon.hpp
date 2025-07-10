@@ -19,6 +19,8 @@ protected:
 public:
 	Polygon();
 
+	Polygon(const Polygon &other);
+
 	/// @brief Creates a regular polygon center at the origin based on the radius of the circumscribed circle.
 	/// @param n number of vertices of the polygon.
 	/// @param radius radius of the circumscribed circle.
@@ -40,6 +42,8 @@ public:
 	const int *get_indices() const;
 
 	const int get_num_indices() const;
+
+	Polygon operator=(const Polygon &other);
 
 	~Polygon();
 };

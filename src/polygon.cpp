@@ -3,6 +3,21 @@
 
 Polygon::Polygon(){}
 
+Polygon::Polygon(const Polygon &other){
+	n = other.n;
+	numIndices = other.numIndices;
+
+	vertices = new SDL_Vertex[n];
+	for (int i = 0; i < n; i++){
+		vertices[i] = other.vertices[i];
+	}
+
+	indices = new int[numIndices];
+	for (int i = 0; i < numIndices; i++){
+		indices[i] = other.indices[i];
+	}
+}
+
 Polygon::Polygon(int n, float radius) : n(n), numIndices(3*(n-2)) {
 	vertices = new SDL_Vertex[n];
 	indices = new int[3*(n-2)];
@@ -44,6 +59,26 @@ const int Polygon::get_num_vertices() const { return n; }
 const int *Polygon::get_indices() const { return indices; }
 
 const int Polygon::get_num_indices() const { return numIndices; }
+
+Polygon Polygon::operator=(const Polygon &other){
+	if (this == &other) return *this; // Self-assignment check
+	n = other.n;
+	numIndices = other.numIndices;
+
+	delete[] vertices;
+	vertices = new SDL_Vertex[n];
+	for (int i = 0; i < n; i++){
+		vertices[i] = other.vertices[i];
+	}
+
+	delete[] indices;
+	indices = new int[numIndices];
+	for (int i = 0; i < numIndices; i++){
+		indices[i] = other.indices[i];
+	}
+
+	return *this;
+}
 
 Polygon::~Polygon()
 {
