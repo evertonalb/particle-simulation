@@ -22,6 +22,7 @@ public:
 	float get_radius() const;
 	float get_x() const;
 	float get_y() const;
+	void move(float dx, float dy);
 };
 
 #endif // BALL_HPP

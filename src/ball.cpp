@@ -25,8 +25,6 @@ void Ball::update(float &delta){
 	float dx = speed.x * delta;
 	float dy = speed.y * delta;
 
-	x += dx;
-	y += dy;
 	move(dx, dy);
 	
 	// move(dx, dy);
@@ -41,3 +39,9 @@ float Ball::largest_y(){ return y + radius; }
 float Ball::get_radius() const { return radius; }
 float Ball::get_x() const { return x; }
 float Ball::get_y() const { return y; }
+
+void Ball::move(float dx, float dy) {
+	x += dx;
+	y += dy;
+	Polygon::move(dx, dy);
+}
