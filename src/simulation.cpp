@@ -59,11 +59,24 @@ void Simulation::draw(){
 	SDL_RenderPresent(renderer);
 }
 
-void Simulation::create_ball(float r, float g, float b, float a){
+void Simulation::create_ball(float r, float g, float b, float a, float x, float y){
+	balls.emplace_back(x, y, radius);
+	balls.back().set_color(r, g, b, a);
+}
+
+void Simulation::create_balls(int n){
 	int w, h;
 	SDL_GetWindowSizeInPixels(window, &w, &h);
-	balls.emplace_back(w / 2.0, h / 2.0, 50);
-	balls.back().set_color(r, g, b, a);
+	for (int i = 0; i < n; i++){
+		create_ball(
+			0.1 + 0.8 * SDL_randf(),
+			0.1 + 0.8 * SDL_randf(),
+			0.1 + 0.8 * SDL_randf(),
+			1.0,
+			radius + SDL_randf() * (w - 2 * radius),
+			radius + SDL_randf() * (h - 2 * radius)
+		);
+	}
 }
 
 void Simulation::handle_collisions(Ball &ball){
@@ -101,8 +114,8 @@ Simulation::Simulation(const char *title, int w, int h){
 void Simulation::run(){
 	running = true;
 
-	create_ball(0, 0.7, 0.7, 1.0);
-
+	create_balls(20);
+	
 	float delta;
 	SDL_Event event;
 	SDL_GetCurrentTime(&currentTime);

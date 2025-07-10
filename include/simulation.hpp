@@ -11,13 +11,15 @@ private:
 	SDL_Renderer *renderer;
 	bool running;
 	std::vector<Ball> balls;
+	float radius = 10;
 	SDL_Time currentTime, lastTime; // Current and last time in nanoseconds
 	
 	void handle_events();
 	void passTime(float &delta);
 	void update(float &delta);
 	void draw();
-	void create_ball(float r, float g, float b, float a);
+	void create_ball(float r, float g, float b, float a, float x, float y);
+	void create_balls(int n);
 	void handle_collisions(Ball &ball);
 public:
 	Simulation(const char *title, int w, int h);
