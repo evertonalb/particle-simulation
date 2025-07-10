@@ -45,3 +45,9 @@ void Ball::move(float dx, float dy) {
 	y += dy;
 	Polygon::move(dx, dy);
 }
+
+bool Ball::is_colliding_with(const Ball &other) const{
+	float dx = other.get_x() - get_x();
+	float dy = other.get_y() - get_y();
+	return SDL_sqrt(dx * dx + dy * dy) < (radius + other.get_radius());
+}

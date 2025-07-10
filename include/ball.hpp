@@ -23,6 +23,7 @@ public:
 	float get_x() const;
 	float get_y() const;
 	void move(float dx, float dy);
+	bool is_colliding_with(const Ball &other) const;
 };
 
 #endif // BALL_HPP
