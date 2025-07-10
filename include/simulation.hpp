@@ -20,7 +20,7 @@ private:
 	void draw();
 	void create_ball(float r, float g, float b, float a, float x, float y);
 	void create_balls(int n);
-	void handle_collisions(Ball &ball);
+	void window_collision(Ball &ball);
 public:
 	Simulation(const char *title, int w, int h);
 

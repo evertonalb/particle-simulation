@@ -34,7 +34,7 @@ void Simulation::passTime(float &delta){
 void Simulation::update(float &delta){
 	for (auto &ball : balls){
 		ball.update(delta);
-		handle_collisions(ball);
+		window_collision(ball);
 	}
 
 	SDL_Delay(16); // Limit frame rate to approximately 60 FPS
@@ -79,8 +79,8 @@ void Simulation::create_balls(int n){
 	}
 }
 
-void Simulation::handle_collisions(Ball &ball){
-	// Handle collisions with the window boundaries
+void Simulation::window_collision(Ball &ball){
+	// Handles collisions with the window boundaries
 	int w, h;
 	SDL_GetWindowSizeInPixels(window, &w, &h);
 	
