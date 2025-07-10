@@ -21,6 +21,8 @@ public:
 	Vector operator-();
 	Vector operator-(Vector v);
 	Vector operator-=(Vector v);
+	// Dot product
+	float operator*(Vector v);
 	Vector operator*(float c);
 	Vector operator*=(float c);
 

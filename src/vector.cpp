@@ -30,7 +30,10 @@ Vector Vector::operator-=(Vector v){
 	return *this;
 }
 
-Vector Vector::operator*(float c){
+float Vector::operator*(Vector v) { return x * v.x + y * v.y; }	
+
+Vector Vector::operator*(float c)
+{
 	Vector result;
 	result.x = x * c;
 	result.y = y * c;
