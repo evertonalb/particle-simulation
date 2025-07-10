@@ -19,6 +19,9 @@ public:
 	float largest_x();
 	float lowest_y();
 	float largest_y();
+	float get_radius() const;
+	float get_x() const;
+	float get_y() const;
 };
 
 #endif // BALL_HPP
