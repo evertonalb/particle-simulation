@@ -46,6 +46,15 @@ void Ball::move(float dx, float dy) {
 	Polygon::move(dx, dy);
 }
 
+
+Vector Ball::get_speed_in_direction(float angle) const {
+	Vector direction(SDL_cos(to_radians(angle)), SDL_sin(to_radians(angle)));
+	float component;
+	component = speed * direction;
+
+	return component * direction;
+}
+
 bool Ball::is_colliding_with(const Ball &other) const{
 	float dx = other.get_x() - get_x();
 	float dy = other.get_y() - get_y();
