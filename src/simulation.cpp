@@ -36,6 +36,12 @@ void Simulation::update(float &delta){
 		ball.update(delta);
 		window_collision(ball);
 		for (auto &other : balls) {
+			if (&ball < &other){
+				SDL_SetRenderDrawColor(renderer, 0, 128, 255, 255);
+				SDL_RenderLine(renderer, ball.get_x(), ball.get_y(), other.get_x(), other.get_y());
+				draw();
+				SDL_Delay(1);
+			}
 			if (&ball < &other && ball.is_colliding_with(other)) {
 				resolve_collision(ball, other);
 			}
@@ -46,9 +52,7 @@ void Simulation::update(float &delta){
 }
 
 void Simulation::draw(){
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderClear(renderer);
-
+	
 	for (const auto &ball : balls){
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		SDL_RenderGeometry(
@@ -60,8 +64,11 @@ void Simulation::draw(){
 			ball.get_num_indices()
 		);		
 	}
-
+	
 	SDL_RenderPresent(renderer);
+	
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderClear(renderer);
 }
 
 void Simulation::create_ball(float r, float g, float b, float a, float x, float y){
@@ -141,6 +148,9 @@ void Simulation::run(){
 	running = true;
 
 	create_balls(100);
+
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderClear(renderer);
 	
 	float delta;
 	SDL_Event event;
