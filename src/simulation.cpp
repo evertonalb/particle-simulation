@@ -35,6 +35,11 @@ void Simulation::update(float &delta){
 	for (auto &ball : balls){
 		ball.update(delta);
 		window_collision(ball);
+		for (auto &other : balls) {
+			if (&ball < &other && ball.is_colliding_with(other)) {
+				resolve_collision(ball, other);
+			}
+		}
 	}
 
 	SDL_Delay(16); // Limit frame rate to approximately 60 FPS
@@ -53,7 +58,7 @@ void Simulation::draw(){
 			ball.get_num_vertices(),
 			ball.get_indices(),
 			ball.get_num_indices()
-		);
+		);		
 	}
 
 	SDL_RenderPresent(renderer);
@@ -101,6 +106,27 @@ void Simulation::window_collision(Ball &ball){
 	}
 }
 
+void Simulation::resolve_collision(Ball &ball1, Ball &ball2){
+	float dx = ball2.get_x() - ball1.get_x();
+	float dy = ball2.get_y() - ball1.get_y();
+	float angle = SDL_atan2f(dy, dx);
+
+	Vector normalSpeed1 = ball1.get_speed_in_direction(angle * 180 / SDL_PI_F);
+	Vector normalSpeed2 = ball2.get_speed_in_direction(angle * 180 / SDL_PI_F);
+
+
+	ball1.speed -= normalSpeed1;
+	ball2.speed -= normalSpeed2;
+	ball1.speed += normalSpeed2;
+	ball2.speed += normalSpeed1;
+
+	// Move balls apart
+	float overlap = (ball1.get_radius() + ball2.get_radius()) - SDL_sqrtf(dx * dx + dy * dy);
+	Vector moveVector = Vector(SDL_cosf(angle), SDL_sinf(angle)) * overlap * 0.5f; // Move each ball half the overlap distance
+	ball1.move(-moveVector.x, -moveVector.y);
+	ball2.move(moveVector.x, moveVector.y);
+}
+
 Simulation::Simulation(const char *title, int w, int h){
 	window = SDL_CreateWindow(title, w, h, SDL_WINDOW_MAXIMIZED);
 	renderer = SDL_CreateRenderer(window, NULL);
@@ -114,7 +140,7 @@ Simulation::Simulation(const char *title, int w, int h){
 void Simulation::run(){
 	running = true;
 
-	create_balls(20);
+	create_balls(100);
 	
 	float delta;
 	SDL_Event event;

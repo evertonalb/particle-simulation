@@ -21,6 +21,7 @@ private:
 	void create_ball(float r, float g, float b, float a, float x, float y);
 	void create_balls(int n);
 	void window_collision(Ball &ball);
+	void resolve_collision(Ball &ball1, Ball &ball2);
 public:
 	Simulation(const char *title, int w, int h);
 
