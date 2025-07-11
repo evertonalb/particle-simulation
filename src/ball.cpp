@@ -31,10 +31,10 @@ void Ball::update(float &delta){
 	// SDL_Log("Ball position: (%f, %f)", x, y);
 }
 
-float Ball::lowest_x(){ return x - radius; }
-float Ball::largest_x(){ return x + radius; }
-float Ball::lowest_y(){ return y - radius; }
-float Ball::largest_y(){ return y + radius; }
+float Ball::lowest_x() const { return x - radius; }
+float Ball::largest_x() const { return x + radius; }
+float Ball::lowest_y() const { return y - radius; }
+float Ball::largest_y() const { return y + radius; }
 
 float Ball::get_radius() const { return radius; }
 float Ball::get_x() const { return x; }

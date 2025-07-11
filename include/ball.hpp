@@ -15,10 +15,10 @@ public:
 	~Ball();
 	void set_color(float r, float g, float b, float a);
 	void update(float &delta);
-	float lowest_x();
-	float largest_x();
-	float lowest_y();
-	float largest_y();
+	float lowest_x() const;
+	float largest_x() const;
+	float lowest_y() const;
+	float largest_y() const;
 	float get_radius() const;
 	float get_x() const;
 	float get_y() const;
