@@ -1,6 +1,8 @@
 #include "ball.hpp"
 #include "vector.hpp"
 
+// Ball class implementation
+
 Ball::Ball(float x, float y, float r) :
 	x(x),
 	y(y),
@@ -9,10 +11,6 @@ Ball::Ball(float x, float y, float r) :
 {
 	speed = Vector(250.0, 0.0);
 	speed.rotate(SDL_randf() * 360.0); // Random initial direction
-}
-
-Ball::~Ball()
-{
 }
 
 void Ball::set_color(float r, float g, float b, float a){
@@ -61,3 +59,20 @@ bool Ball::is_colliding_with(const Ball &other) const {
 	float dy = other.get_y() - get_y();
 	return SDL_sqrt(dx * dx + dy * dy) < (radius + other.get_radius());
 }
+
+// Edge class implementation
+
+Edge::Edge(const Edge &other) : parent(other.parent), direction(other.direction) {}
+
+Edge::Edge(Ball *parent, EdgeDirection direction) : parent(parent), direction(direction) {}
+
+Edge Edge::operator=(const Edge &other){
+	if (this == &other) return *this; // Handle self-assignment
+	direction = other.direction;
+	parent = other.parent; // Copy the parent ball pointer
+	return *this;
+}
+
+float Edge::get_x() const { return (direction == LEFT) ? parent->lowest_x() : parent->largest_x(); }
+
+EdgeDirection Edge::get_direction() const { return direction; }
