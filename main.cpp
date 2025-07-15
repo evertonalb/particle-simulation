@@ -5,7 +5,7 @@ using namespace std;
 int SDL_main(int argc, char **args){ 
 	SDL_Init(SDL_INIT_VIDEO);
 
-	Simulation sim("Simulation", 600, 800);
+	Simulation sim("Simulation", 1000, 1000);
 
 	sim.run();
 	
