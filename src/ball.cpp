@@ -1,5 +1,6 @@
 #include "ball.hpp"
 #include "vector.hpp"
+#include <stdexcept>
 
 // Ball class implementation
 
@@ -73,6 +74,20 @@ Edge Edge::operator=(const Edge &other){
 	return *this;
 }
 
-float Edge::get_x() const { return (direction == LEFT) ? parent->lowest_x() : parent->largest_x(); }
+float Edge::get_x() const {
+	if (direction == LEFT) {
+		return parent->lowest_x();
+	} else if (direction == RIGHT) {
+		return parent->largest_x();
+	} else throw std::runtime_error("Edge::get_x() called on an invalid direction");
+}
+
+float Edge::get_y() const {
+	if (direction == TOP) {
+		return parent->lowest_y();
+	} else if (direction == BOTTOM) {
+		return parent->largest_y();
+	} else throw std::runtime_error("Edge::get_y() called on an invalid direction");
+}
 
 EdgeDirection Edge::get_direction() const { return direction; }

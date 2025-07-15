@@ -11,6 +11,7 @@ class Ball : public Polygon {
 private:
 	float x, y, radius;
 public:
+	int id;
 	Vector speed; // Speed vector for the ball in pixels per second
 
 	Ball(float x, float y, float r);
@@ -35,7 +36,7 @@ public:
 	friend class Edge;
 };
 
-typedef enum {LEFT, RIGHT} EdgeDirection;
+typedef enum {LEFT, RIGHT, TOP, BOTTOM} EdgeDirection;
 
 class Edge {
 private:
@@ -49,6 +50,7 @@ public:
 	Edge(Ball *parent, EdgeDirection direction);
 	Edge operator=(const Edge &other);
 	float get_x() const;
+	float get_y() const;
 	EdgeDirection get_direction() const;
 
 	~Edge() = default;

@@ -34,51 +34,75 @@ void Simulation::passTime(float &delta){
 }
 	
 void Simulation::update(float &delta){
-	std::sort(balls.begin(), balls.end(), [](const Ball &a, const Ball &b) {
-		return a.lowest_x() < b.lowest_x(); // Sort by x-coordinate for sweep and prune
-	});
 	
-	for (auto &ball : balls){
-		ball.update(delta);
-		window_collision(ball);
+	for (auto ball : balls){
+		ball->update(delta);
+		window_collision(*ball);
+	}
 
-		// Sweep and prune collision detection
-		for (auto &other : balls) {
-			if (other.lowest_x() > ball.largest_x()) {
-				break; // No further balls can collide with this ball
-			}
+	// Check for collisions between balls
+	std::sort(edgesX.begin(), edgesX.end(), [](const Edge &a, const Edge &b) {
+		return a.get_x() < b.get_x();
+	});
 
-			if (&ball < &other) {
-				SDL_SetRenderDrawColor(renderer, 0, 255, 255, 255);
-				SDL_RenderLine(
-					renderer,
-					ball.get_x(), ball.get_y(),
-					other.get_x(), other.get_y()
-				);
-				draw();
-				SDL_Delay(1); // Small delay to visualize the line
-			}			
-			
-			if (&ball < &other && ball.is_colliding_with(other)) {
-				resolve_collision(ball, other);
+	std::set<Ball *> overlapping; // Set to track overlapping balls
+
+	for (const auto &edge : edgesX) {
+		if (edge.get_direction() == LEFT){
+			overlapping.insert(edge.parent);
+
+			Ball &current = *edge.parent;
+			for (auto other : overlapping) {
+				if (other == &current) continue; // Skip self-collision
+				overlapsX[current.id][other->id] = true;
+				overlapsX[other->id][current.id] = true;
 			}
+		} else if (edge.get_direction() == RIGHT){
+			overlapping.erase(edge.parent);
 		}
+	}
+
+	std::sort(edgesY.begin(), edgesY.end(), [](const Edge &a, const Edge &b) {
+		return a.get_y() < b.get_y();
+	});
+
+	for (const auto &edge : edgesY) {
+		if (edge.get_direction() == TOP){
+			overlapping.insert(edge.parent);
+
+			Ball &current = *edge.parent;
+			for (auto other : overlapping) {
+				if (other == &current || !overlapsX[current.id][other->id]) continue; // Skip self-collision and already ruled out collisions
+
+				// Check for collision with the current ball				
+				if (current.is_colliding_with(*other)) {
+					resolve_collision(current, *other);
+				}
+			}
+		} else if (edge.get_direction() == BOTTOM){
+			overlapping.erase(edge.parent);
+		}
+	}
+
+	// Reset overlapsX for the next frame
+	for (auto &row : overlapsX) {
+		std::fill(row.begin(), row.end(), false);
 	}
 
 	SDL_Delay(16); // Limit frame rate to approximately 60 FPS
 }
 
 void Simulation::draw(){
-	for (const auto &ball : balls){
+	for (const auto ball : balls){
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		SDL_RenderGeometry(
 			renderer,
 			NULL,
-			ball.get_vertices(),
-			ball.get_num_vertices(),
-			ball.get_indices(),
-			ball.get_num_indices()
-		);		
+			ball->get_vertices(),
+			ball->get_num_vertices(),
+			ball->get_indices(),
+			ball->get_num_indices()
+		);
 	}
 
 	SDL_RenderPresent(renderer);
@@ -88,8 +112,8 @@ void Simulation::draw(){
 }
 
 void Simulation::create_ball(float r, float g, float b, float a, float x, float y){
-	balls.emplace_back(x, y, radius);
-	balls.back().set_color(r, g, b, a);
+	balls.push_back(new Ball(x, y, radius));
+	balls.back()->set_color(r, g, b, a);
 }
 
 void Simulation::create_balls(int n){
@@ -104,7 +128,14 @@ void Simulation::create_balls(int n){
 			radius + SDL_randf() * (w - 2 * radius),
 			radius + SDL_randf() * (h - 2 * radius)
 		);
+		balls.back()->id = i;
+		edgesX.push_back(Edge(balls.back(), LEFT));
+		edgesX.push_back(Edge(balls.back(), RIGHT));
+		edgesY.push_back(Edge(balls.back(), TOP));
+		edgesY.push_back(Edge(balls.back(), BOTTOM));
+		overlapsX = std::vector< std::vector<bool> >(n, std::vector<bool>(n, false));
 	}
+
 }
 
 void Simulation::window_collision(Ball &ball){
