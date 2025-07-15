@@ -5,6 +5,8 @@ project(
 	VERSION 1.0.0
 	LANGUAGES C CXX)
 
+add_link_options(-mwindows)
+
 add_executable(${PROJECT_NAME} main.cpp)
 
 add_subdirectory(src)
