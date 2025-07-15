@@ -16,13 +16,15 @@ public:
 
 	// Linear operators
 
-	Vector operator+(Vector v);
-	Vector operator+=(Vector v);
-	Vector operator-();
-	Vector operator-(Vector v);
-	Vector operator-=(Vector v);
-	Vector operator*(float c);
-	Vector operator*=(float c);
+	Vector operator+(const Vector &v) const;
+	Vector operator+=(const Vector &v);
+	Vector operator-() const;
+	Vector operator-(const Vector &v) const;
+	Vector operator-=(const Vector &v);
+	// Dot product
+	float operator*(const Vector &v) const;
+	Vector operator*(const float &c) const;
+	Vector operator*=(const float &c);
 
 	
 	/// @brief Rotates the vector counterclockwise
@@ -30,6 +32,6 @@ public:
 	void rotate(float angle);
 };
 
-Vector operator*(float c, Vector v);
+Vector operator*(const float &c, const Vector &v);
 
 #endif

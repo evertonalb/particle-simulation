@@ -4,40 +4,42 @@ Vector::Vector(){}
 
 Vector::Vector(float x, float y) : x(x), y(y) {}
 
-Vector Vector::operator+(Vector v){
+Vector Vector::operator+(const Vector &v) const {
 	Vector result;
 	result.x = x + v.x;
 	result.y = y + v.y;
 	return result;
 }
 
-Vector Vector::operator+=(Vector v){
+Vector Vector::operator+=(const Vector &v){
 	*this = *this + v;
 	return *this;
 }
 
-Vector Vector::operator-(){
+Vector Vector::operator-() const {
 	Vector result;
 	result.x = -x;
 	result.y = -y;
 	return result;
 }
 
-Vector Vector::operator-(Vector v){ return (*this + (-v)); }
+Vector Vector::operator-(const Vector &v) const { return (*this + (-v)); }
 
-Vector Vector::operator-=(Vector v){
+Vector Vector::operator-=(const Vector &v){
 	*this = *this - v;
 	return *this;
 }
 
-Vector Vector::operator*(float c){
+float Vector::operator*(const Vector &v) const { return x * v.x + y * v.y; }
+
+Vector Vector::operator*(const float &c) const {
 	Vector result;
 	result.x = x * c;
 	result.y = y * c;
 	return result;
 }
 
-Vector Vector::operator*=(float c){
+Vector Vector::operator*=(const float &c){
 	*this = *this * c;
 	return *this;
 }
@@ -50,4 +52,4 @@ void Vector::rotate(float angle){
 	y = newY;
 }
 
-Vector operator*(float c,  Vector v){ return v * c; }
+Vector operator*(const float &c, const Vector &v){ return v * c; }
